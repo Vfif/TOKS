@@ -1,0 +1,1 @@
+start javaw -jar -Dfile.encoding=ISO_8859_1 C:\Users\Home\IdeaProjects\mytoks\out\artifacts\mytoks_jar\mytoks.jar
