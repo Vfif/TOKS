@@ -53,23 +53,32 @@ public class Main extends Application {
                 debugTextArea.clear();
                 String text = inputTextArea.getText();
                 text = text.substring(0, text.length() - 1);
-                int maxCollisionCount = comboBox.getValue();//comboBox.getSelectionModel().getSelectedItem().intValue();
+                int maxCollisionCount = comboBox.getValue();
                 long time;
                 boolean collision;
+                String channel;
                 for (String symbol : text.split("")) {
-                    for (int j = 0; j < maxCollisionCount; j++) {
-                        time = new Date().getTime();//Carrier Sense
-                        collision = time % 2 == 1 & new Random().nextBoolean();//Collision Detection
+                    for (int j = 0; j < maxCollisionCount; ) {
+                        time = new Date().getTime(); //прослушивание канала
+                        channel = symbol;//запись в канал
+                        try {
+                            Thread.sleep(1);//окно коллизий
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        collision = (time % maxCollisionCount) > (maxCollisionCount / 7);//Collision Detection
                         if (collision) {
                             debugTextArea.appendText("X");
+                            j++;
+                            if (j == maxCollisionCount) break;
                             try {
-                                Thread.sleep(new Random().nextInt((int) Math.pow(2, j)));
+                                Thread.sleep(new Random().nextInt((int) Math.pow(2, j)));//Random sleep 0 < r < 2^10
                             } catch (InterruptedException ex) {
                                 ex.printStackTrace();
                             }
                         } else {
                             if (j == 0) debugTextArea.appendText("-");
-                            outputTextArea.appendText(symbol);
+                            outputTextArea.appendText(channel);
                             break;
                         }
                     }

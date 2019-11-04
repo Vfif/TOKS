@@ -1,0 +1,1 @@
+start javaw -jar C:\Users\Home\IdeaProjects\TOKS\Lab4\out\artifacts\Lab4_jar\Lab4.jar
